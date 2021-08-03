@@ -1,0 +1,16 @@
+{
+  "name": "iplookup-cli",
+  "version": "1.0.0",
+  "description": "Queries IP location databases and shows info on the owner and their IP ranges",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./index.js"
+  },
+  "author": "dkvz.eu",
+  "license": "MIT",
+  "dependencies": {
+    "@maxmind/geoip2-node": "^3.1.0",
+    "dotenv": "^10.0.0"
+  }
+}
