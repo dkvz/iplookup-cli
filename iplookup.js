@@ -17,18 +17,28 @@ async function showIpInfo(ips) {
   await geoip.openReaders(geoCityPath, geoAsnPath)
   for (ip of ips) {
     console.log('---')
+    let asTable;
     const city = geoip.getCity(ip)
     const asn = geoip.getASN(ip)
     console.log(`IP Address: ${ip}`)
-    const asTable = {
-      'Country': city.country.names.en,
-      'ISO': city.country.isoCode,
-      'Registered Ctry': city.registeredCountry.names.en,
-      'AS': asn.autonomousSystemNumber,
-      'Org': asn.autonomousSystemOrganization,
-      'AS net': asn.network
+    if (city) {
+      asTable = {
+        'Country': city.country.names.en,
+        'ISO': city.country.isoCode,
+        'Registered Ctry': city.registeredCountry.names.en,
+      }
+    } else {
+      asTable = {
+        'Country': 'No data'
+      }
     }
-    if (city.traits && city.traits.network) {
+    if (asn) {
+      asTable['AS'] = asn.autonomousSystemNumber;
+      asTable['Org'] = asn.autonomousSystemOrganization;
+      asTable['AS net'] = asn.network;
+    }
+    // Wanted this at the end
+    if (city && city.traits && city.traits.network) {
       asTable['IP net'] = city.traits.network
     }
     console.table(asTable)
