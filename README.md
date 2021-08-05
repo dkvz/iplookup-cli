@@ -13,5 +13,6 @@ node index.js 8.8.8.8 1.1.1.1
 ```
 
 # TODO
-- [ ] Add a flag to query the GeoIP API instead of using the local DBs
 - [ ] Add error handling
+- [ ] Could be a CLI npm package. Just set the env varibles globally in bashrc or something to set your own database paths
+- [ ] Add a flag to query the GeoIP API instead of using the local DBs

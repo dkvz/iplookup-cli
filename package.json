@@ -2,10 +2,13 @@
   "name": "iplookup-cli",
   "version": "1.0.0",
   "description": "Queries IP location databases and shows info on the owner and their IP ranges",
-  "main": "index.js",
+  "main": "iplookup.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./index.js"
+    "start": "node ./iplookup.js"
+  },
+  "bin": {
+    "iplookup": "./iplookup.js"
   },
   "author": "dkvz.eu",
   "license": "MIT",
