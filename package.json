@@ -1,6 +1,6 @@
 {
   "name": "@dkvz/iplookup-cli",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Queries IP location databases and shows info on the owner and their IP ranges",
   "main": "iplookup.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "start": "node ./iplookup.js"
   },
   "bin": {
-    "iplookup": "./iplookup.js"
+    "iplookup-node": "./iplookup.js"
   },
   "author": "dkvz.eu",
   "license": "MIT",
