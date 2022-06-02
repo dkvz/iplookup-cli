@@ -33,16 +33,16 @@ async function showIpInfo(ips, short = false) {
       }
     }
     if (asn) {
-      asTable['AS'] = asn.autonomousSystemNumber;
-      asTable['Org'] = asn.autonomousSystemOrganization;
-      asTable['AS net'] = asn.network;
+      asTable['AS'] = asn.autonomousSystemNumber
+      asTable['Org'] = asn.autonomousSystemOrganization
+      asTable['AS net'] = asn.network
     }
     // At some point I realized I needed this:
     if (city && city.traits && city.traits.network) {
       asTable['IP net'] = city.traits.network
     }
     if (short) {
-      process.stdout.write(`${asTable.ISO ? asTable.ISO : '??'} `)
+      console.log(asTable.ISO ? asTable.ISO : '??')
     } else {
       console.log(`IP Address: ${ip}`)
       console.table(asTable)
@@ -50,9 +50,6 @@ async function showIpInfo(ips, short = false) {
     }
     //console.log(JSON.stringify({ ...city, ...asn }, null, 2))
   }
-  // Just to terminate the line when listing country codes
-  // only:
-  if (short) console.log()
 }
 
 

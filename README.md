@@ -12,6 +12,8 @@ Provide a list of IP addresses as arguments.
 node index.js 8.8.8.8 1.1.1.1
 ```
 
+The `-s` option makes it so only the country code is printed.
+
 ## NPM package
 Can be installed as a CLI tool from npm:
 ```
