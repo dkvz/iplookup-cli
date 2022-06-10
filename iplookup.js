@@ -21,7 +21,7 @@ async function showIpInfo(ips, short = false) {
     const city = geoip.getCity(ip)
     const asn = geoip.getASN(ip)
     let asTable
-    if (city) {
+    if (city && city.country) {
       asTable = {
         'Country': city.country.names.en,
         'ISO': city.country.isoCode,
