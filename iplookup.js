@@ -25,7 +25,7 @@ async function showIpInfo(ips, short = false) {
       asTable = {
         'Country': city.country.names.en,
         'ISO': city.country.isoCode,
-        'Registered Ctry': city.registeredCountry.names.en,
+        'Registered Ctry': city.registeredCountry && city.registeredCountry.names.en,
       }
     } else {
       asTable = {
