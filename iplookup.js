@@ -5,6 +5,7 @@ const yargs = require('yargs/yargs')
 const { hideBin } = require('yargs/helpers')
 const path = require('path')
 const geoip = require('./lib/geoip')
+const { reverseLookup } = require('./lib/dns')
 
 const geoAsnPath = path.join(process.env.DB_DIR, process.env.ASN_DB_NAME)
 const geoCityPath = path.join(process.env.DB_DIR, process.env.CITY_DB_NAME)
@@ -15,22 +16,21 @@ function die(msg) {
   process.exit(1)
 }
 
-async function showIpInfo(ips, short = false) {
+async function showIpInfo(ips, short = false, disableDnsLookups = false) {
   await geoip.openReaders(geoCityPath, geoAsnPath)
   for (ip of ips) {
     const city = geoip.getCity(ip)
     const asn = geoip.getASN(ip)
-    let asTable
+    let asTable = { 'IP Address': ip }
     if (city && city.country) {
       asTable = {
+        ...asTable,
         'Country': city.country.names.en,
         'ISO': city.country.isoCode,
         'Registered Ctry': city.registeredCountry && city.registeredCountry.names.en,
       }
     } else {
-      asTable = {
-        'Country': 'No data'
-      }
+      asTable['Country'] = 'No data'
     }
     if (asn) {
       asTable['AS'] = asn.autonomousSystemNumber
@@ -44,7 +44,10 @@ async function showIpInfo(ips, short = false) {
     if (short) {
       console.log(asTable.ISO ? asTable.ISO : '??')
     } else {
-      console.log(`IP Address: ${ip}`)
+      //console.log(`IP Address: ${ip}`)
+      if (!disableDnsLookups) {
+        asTable['Reverse DNS'] = await reverseLookup(ip)
+      }
       console.table(asTable)
       console.log('---')
     }
@@ -61,10 +64,16 @@ const argv = yargs(hideBin(process.argv))
     boolean: true,
     default: false
   })
+  .option('nodns', {
+    alias: 'n',
+    describe: 'Disable DNS lookups',
+    boolean: true,
+    default: false
+  })
   .help()
   .parse()
 
 if (argv._.length < 1) die('Missing IP address(es) as argument(s)')
 
 //const ipArgs = process.argv.splice(2)
-showIpInfo(argv._, argv.short)
+showIpInfo(argv._, argv.short, argv.nodns)

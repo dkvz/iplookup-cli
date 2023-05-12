@@ -9,10 +9,12 @@ Expects 3 environement variables that I use for other scripts of mine (see `.env
 Provide a list of IP addresses as arguments.
 
 ```
-node index.js 8.8.8.8 1.1.1.1
+node iplookup.js 8.8.8.8 1.1.1.1
 ```
 
-The `-s` option makes it so only the country code is printed.
+Options:
+* `-s` makes it so only the country code is printed.
+* `-n` disables reverse DNS lookup.
 
 ## NPM package
 Can be installed as a CLI tool from npm:
