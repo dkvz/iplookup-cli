@@ -1,6 +1,6 @@
 {
   "name": "@dkvz/iplookup-cli",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Queries IP location databases and shows info on the owner and their IP ranges",
   "main": "iplookup.js",
   "scripts": {

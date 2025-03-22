@@ -4,8 +4,9 @@ require('dotenv').config()
 const yargs = require('yargs/yargs')
 const { hideBin } = require('yargs/helpers')
 const path = require('path')
+const net = require('net')
 const geoip = require('./lib/geoip')
-const { reverseLookup } = require('./lib/dns')
+const { reverseLookup, lookup } = require('./lib/dns')
 
 const geoAsnPath = path.join(process.env.DB_DIR, process.env.ASN_DB_NAME)
 const geoCityPath = path.join(process.env.DB_DIR, process.env.CITY_DB_NAME)
@@ -19,6 +20,16 @@ function die(msg) {
 async function showIpInfo(ips, short = false, disableDnsLookups = false) {
   await geoip.openReaders(geoCityPath, geoAsnPath)
   for (ip of ips) {
+    // Is this an IP address or domain name?
+    if (!net.isIP(ip)) {
+      try {
+        ip = await lookup(ip)
+      } catch (ex) {
+        console.error(`Could not resolve argument ${ip} as a domain name: ${ex}`)
+        continue
+      }
+    }
+
     const city = geoip.getCity(ip)
     const asn = geoip.getASN(ip)
     let asTable = { 'IP Address': ip }

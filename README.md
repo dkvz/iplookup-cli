@@ -16,6 +16,8 @@ Options:
 * `-s` makes it so only the country code is printed.
 * `-n` disables reverse DNS lookup.
 
+As of version 3.1 you can also use domain names or even full URLs as arguments and the script will resolve them for you and use the first resolved IPv4 address found.
+
 ## NPM package
 Can be installed as a CLI tool from npm:
 ```
